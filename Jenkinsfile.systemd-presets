@@ -1,0 +1,10 @@
+@Library("dst-shared@release/shasta-1.4") _
+rpmBuild (
+    specfile: "cray-uan-systemd-presets.spec",
+    channel: "casmcms-builds",
+    slack_notify: ['SUCCESS','FAILURE'],
+    product: "uan",
+    target_node: "ncn",
+    fanout_params: ["sle15sp1"],
+    sendEvents: ["uan-rpms:release/shasta-1.4"],
+)
