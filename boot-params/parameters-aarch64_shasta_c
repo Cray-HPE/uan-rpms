@@ -1,0 +1,17 @@
+console=ttyAMA0,115200
+bad_page=panic
+crashkernel=340M
+hugepagelist=2m-2g
+iommu.passthrough=1
+ip=dhcp
+numa_interleave_omit=headless
+numa_zonelist_order=node
+oops=panic
+pageblock_order=14
+pcie_ports=native
+printk.synchronous=y
+quiet
+rd.neednet=1
+rd.retry=10
+rd.shell
+turbo_boost_limit=999
