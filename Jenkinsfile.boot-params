@@ -8,4 +8,6 @@ rpmBuild (
     target_node: "ncn",
     fanout_params: ["sle15sp1", "sle15sp2"],
     sendEvents: ["uan-rpms:master"],
+    githubPushRepo: "Cray-HPE/uan-rpms",
+    githubPushBranches: /(bugfix\/.*|feature\/.*|hotfix\/.*|master|release\/.*)/,
 )
