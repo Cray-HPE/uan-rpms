@@ -1,5 +1,7 @@
 // Copyright 2020-2021 Hewlett Packard Enterprise Development LP
 @Library("dst-shared") _
+// NOTE: If this Jenkinsfile is removed, the a Jenkinsfile.github file must be created
+// to do the github push. See the cray-product-install-charts repo for an example.
 rpmBuild (
     specfile: "cray-uan-boot-params.spec",
     channel: "casmcms-builds",
