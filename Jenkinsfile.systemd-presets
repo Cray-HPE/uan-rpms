@@ -5,6 +5,6 @@ rpmBuild (
     slack_notify: ['SUCCESS','FAILURE'],
     product: "uan",
     target_node: "ncn",
-    fanout_params: ["sle15sp1"],
+    fanout_params: ["sle15sp1", "sle15sp2"],
     sendEvents: ["uan-rpms:master"],
 )
