@@ -36,18 +36,6 @@ command:
     timeout: 1000
     skip: false
 
-  cudatoolkit_installed:
-    title: cudatoolkit is available
-    meta:
-      desc: Validates that cudatoolkit is available
-      sev: 0
-    exec: "module load cudatoolkit"
-    stdout:
-    - "!Unable to locate a modulefile"
-    - "!command not found"
-    timeout: 1000
-    skip: false
-
   cuda_hello:
     title: Compile and run a simple CUDA Hello World program
     meta:
