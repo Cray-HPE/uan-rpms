@@ -40,12 +40,11 @@ checks and validate basic functionality.
 %build
 
 %install
-%{__install} -D tests $RPM_BUILD_ROOT/opt/cray/uan
+%{__install} -D tests $RPM_BUILD_ROOT/opt/cray/uan/tests
 
 %clean
 rm -rf /opt/cray/uan/tests
 
 %files uan
 %defattr (-,root,root,755)
-#/etc/modules-load.d/qlogic.conf
-#/etc/modules-load.d/disk.conf
+%dir /opt/cray/uan/tests
