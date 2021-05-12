@@ -30,9 +30,12 @@ Group: System/Boot
 Summary: Diagnostics tests for User Access Node
 Conflicts: %{namespace}-%{intranamespace_name}
 
-%description
+%description uan
 This package adds diagnostics testing for UANs to run sanity 
 checks and validate basic functionality.
+
+%description
+Tests included for %{doc_name} UAN nodes.
 
 %prep
 %setup -n %{source_name}
