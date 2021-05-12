@@ -3,12 +3,11 @@
 #
 # Copyright 2021 Hewlett Packard Enterprise Development LP
 
-%define system_name shasta
-%define doc_name Shasta
 %define namespace cray
+%define uan_dir /opt/cray/uan
 
 %define package_name uan-diagnostics
-%define intranamespace_name %{package_name}-%{system_name}
+%define intranamespace_name %{package_name}
 # omit system_name so source doesn't need to be repackaged for each system
 %define source_name %{namespace}-%{package_name}-%{version}
 
@@ -35,7 +34,7 @@ This package adds diagnostics testing for UANs to run sanity
 checks and validate basic functionality.
 
 %description
-Tests included for %{doc_name} UAN nodes.
+Tests included for UAN nodes.
 
 %prep
 %setup -n %{source_name}
@@ -43,22 +42,23 @@ Tests included for %{doc_name} UAN nodes.
 %build
 
 %install
-%{__install} -D tests $RPM_BUILD_ROOT/opt/cray/uan/tests
+mkdir -p $RPM_BUILD_ROOT/%{uan_dir}/
+cp -R tests $RPM_BUILD_ROOT/%{uan_dir}
 
 %clean
-rm -rf /opt/cray/uan/tests
+rm -rf %{uan_dir}/tests
 
 %files uan
 %defattr (-,root,root,755)
-%dir /opt/cray/uan/tests/goss
-%dir /opt/cray/uan/tests/goss/tests
-%dir /opt/cray/uan/tests/goss/scripts
-%dir /opt/cray/uan/tests/goss/scripts/gpu
-/opt/cray/uan/tests/validate-gpu.sh
-/opt/cray/uan/tests/goss/tests/goss-gpu.yaml
-/opt/cray/uan/tests/goss/tests/goss-gpu-vars.yaml
-/opt/cray/uan/tests/goss/scripts/gpu/cuda-profile
-/opt/cray/uan/tests/goss/scripts/gpu/Makefile
-/opt/cray/uan/tests/goss/scripts/gpu/hello.cu
-/opt/cray/uan/tests/goss/scripts/gpu/hello_dbg.cu
-/opt/cray/uan/tests/goss/scripts/gpu/cuda_hello.sh
+%{uan_dir}/tests
+#%dir /opt/cray/uan/tests/goss
+#%dir /opt/cray/uan/tests/goss/tests
+#%dir /opt/cray/uan/tests/goss/scripts
+#%dir /opt/cray/uan/tests/goss/scripts/gpu
+#/opt/cray/uan/tests/goss/tests/goss-gpu.yaml
+#/opt/cray/uan/tests/goss/tests/goss-gpu-vars.yaml
+#/opt/cray/uan/tests/goss/scripts/gpu/cuda-profile
+#/opt/cray/uan/tests/goss/scripts/gpu/Makefile
+#/opt/cray/uan/tests/goss/scripts/gpu/hello.cu
+#/opt/cray/uan/tests/goss/scripts/gpu/hello_dbg.cu
+#/opt/cray/uan/tests/goss/scripts/gpu/cuda_hello.sh
