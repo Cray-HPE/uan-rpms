@@ -22,10 +22,6 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-build
 
 Requires: %{namespace}-uan-goss
 
-%package uan
-Group: System/Boot
-Summary: Diagnostics tests for User Access Node
-
 %description uan
 This package adds diagnostics testing for UANs to run sanity 
 checks and validate basic functionality.
