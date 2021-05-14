@@ -1,0 +1,18 @@
+# Copyright 2021 Hewlett Packard Enterprise Development LP
+nvidia:
+  modules:
+    - nvidia_modeset
+    - nvidia_drm
+    - nvidia_uvm
+    - nvidia
+  commands:
+    - /usr/bin/nvidia-smi
+amd:
+  modules:
+    - amdgpu
+    - amdkcl
+    - amdttm
+    - amd_energy
+    - amd_sched
+  commands:
+    - /opt/rocm/bin/rocm-smi
