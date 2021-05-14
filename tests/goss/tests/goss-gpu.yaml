@@ -20,7 +20,7 @@ command:
     meta:
       desc: Check that the {{$cmd}} command is installed
       sev: 0
-    exec: "which {{$cmd}}"
+    exec: "find {{$cmd}}"
     exit-status: 0
     timeout: 1000
     skip: false

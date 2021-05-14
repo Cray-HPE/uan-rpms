@@ -6,7 +6,7 @@ nvidia:
     - nvidia_uvm
     - nvidia
   commands:
-    - nvidia-smi
+    - /usr/bin/nvidia-smi
 amd:
   modules:
     - amdgpu
@@ -15,4 +15,4 @@ amd:
     - amd_energy
     - amd_sched
   commands:
-    - rocm-smi
+    - /opt/rocm/bin/rocm-smi

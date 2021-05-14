@@ -6,15 +6,17 @@ WORKDIR=$(mktemp -d)
 cp $ROOTDIR/* $WORKDIR
 pushd $WORKDIR
 
-# module unfortunately does not have correct error codes
-# pipe stderr to stdout and parse the output to determine
-# failure
-module load rocm 2>&1 | grep "Unable to locate"
-if [ $? -eq 0 ]; then
-  echo Could not load rocm
+# The module command does not return exit codes correctly
+# so attempt to load a module and check for error output
+# If no error ouput is detected, load the module again
+# to set paths correctly
+if module load rocm 2>&1 | grep "Unable to locate"; then
+  echo Could not load rocm 
   echo FAIL
   exit 1
 fi
+
+module load rocm
 
 make
 if [ $? -ne 0 ]; then
@@ -24,9 +26,13 @@ if [ $? -ne 0 ]; then
 fi
 
 ./HelloWorld
+if [ $? -ne 0 ]; then
+  echo ./HelloWorld failed
+  echo FAIL
+  exit 1
+fi
 
-popd
-rm -r $WORKDIR
+popd; rm -r $WORKDIR
 
 echo PASS
 
