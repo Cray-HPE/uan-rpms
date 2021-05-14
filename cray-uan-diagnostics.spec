@@ -38,6 +38,6 @@ cp -R tests $RPM_BUILD_ROOT/%{uan_dir}
 %clean
 rm -rf %{uan_dir}/tests
 
-%files uan
+%files
 %defattr (-,root,root,755)
 %{uan_dir}/tests
