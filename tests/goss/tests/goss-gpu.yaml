@@ -1,0 +1,65 @@
+# Copyright 2021 Hewlett Packard Enterprise Development LP
+command:
+{{range $mod := index .Vars .Env.GPU "modules"}}
+  {{$mod}}:
+    title: Check that the {{$mod}} module is loaded
+    meta:
+      desc: Check that the {{$mod}} module is loaded
+      sev: 0
+    exec: "lsmod | grep '^{{$mod}} ' | awk '{print $1}'"
+    stdout:
+    - "{{$mod}}"
+    exit-status: 0
+    timeout: 1000
+    skip: false
+{{end}}
+
+{{range $cmd := index .Vars .Env.GPU "commands"}}
+  {{$cmd}}:
+    title: Check that the {{$cmd}} command is installed
+    meta:
+      desc: Check that the {{$cmd}} command is installed
+      sev: 0
+    exec: "find {{$cmd}}"
+    exit-status: 0
+    timeout: 1000
+    skip: false
+{{end}}
+
+  module_installed:
+    title: module is installed
+    meta:
+      desc: Validates that module is installed
+      sev: 0
+    exec: "module"
+    exit-status: 0
+    timeout: 1000
+    skip: false
+
+{{if eq .Env.GPU "nvidia"}}
+  cuda_hello:
+    title: Compile and run a simple CUDA Hello World program
+    meta:
+      desc: Compile and run a simple CUDA Hello World program
+      sev: 0
+    exec: "/usr/bin/env bash {{.Env.GOSS_BASE}}/scripts/nvidia/cuda_hello.sh"
+    stdout:
+    - "PASS"
+    exit-status: 0
+    timeout: 10000
+    skip: false
+{{end}}
+
+{{if eq .Env.GPU "amd"}}
+  cuda_hello:
+    title: Compile and run a simple HIP Hello World program
+    meta:
+      desc: Compile and run a simple HIP Hello World program
+      sev: 0
+    exec: "/usr/bin/env bash {{.Env.GOSS_BASE}}/scripts/amd/hip_hello.sh"
+    stdout:
+    - "PASS"
+    exit-status: 0
+    timeout: 10000
+    skip: false
+{{end}}
