@@ -4,17 +4,15 @@
 # Copyright 2021 Hewlett Packard Enterprise Development LP
 
 %define namespace cray
+%define package_name uan-diagnostics
 %define uan_dir /opt/cray/uan
 
-%define package_name uan-diagnostics
-%define intranamespace_name %{package_name}
 # omit system_name so source doesn't need to be repackaged for each system
 %define source_name %{namespace}-%{package_name}-%{version}
 
 Group: System/Boot
 License: GPL
-Name: %{namespace}-%{intranamespace_name}
-Provides: parameters
+Name: %{namespace}-%{package_name}
 Version: %(cat .rpm_version_uan-diagnostics)
 Release: %(echo ${BUILD_METADATA})
 Source: %{source_name}.tar.bz2
@@ -27,7 +25,6 @@ Requires: %{namespace}-uan-goss
 %package uan
 Group: System/Boot
 Summary: Diagnostics tests for User Access Node
-Conflicts: %{namespace}-%{intranamespace_name}
 
 %description uan
 This package adds diagnostics testing for UANs to run sanity 
