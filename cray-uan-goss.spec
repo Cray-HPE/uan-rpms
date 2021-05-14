@@ -18,6 +18,7 @@ Vendor: Hewlett Packard Enterprise Development LP
 BuildRequires: curl
 
 %description
+Installs the goss package
 
 %prep
 %setup -q

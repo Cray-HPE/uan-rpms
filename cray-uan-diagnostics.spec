@@ -22,12 +22,9 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-build
 
 Requires: %{namespace}-uan-goss
 
-%description uan
+%description
 This package adds diagnostics testing for UANs to run sanity 
 checks and validate basic functionality.
-
-%description
-Tests included for UAN nodes.
 
 %prep
 %setup -n %{source_name}
