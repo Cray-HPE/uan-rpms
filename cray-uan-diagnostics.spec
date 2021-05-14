@@ -12,7 +12,7 @@
 
 Group: System/Boot
 License: GPL
-Name: %{namespace}-%{package_name}
+Name: cray-uan-diagnostics
 Version: %(cat .rpm_version_uan-diagnostics)
 Release: %(echo ${BUILD_METADATA})
 Source: %{source_name}.tar.bz2
