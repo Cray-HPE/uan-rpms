@@ -5,7 +5,7 @@
 
 %define install_dir /usr/bin
 
-Name: uan-goss
+Name: cray-uan-goss
 BuildArch: noarch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}
 License: HPE Proprietary

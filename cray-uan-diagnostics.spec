@@ -51,14 +51,3 @@ rm -rf %{uan_dir}/tests
 %files uan
 %defattr (-,root,root,755)
 %{uan_dir}/tests
-#%dir /opt/cray/uan/tests/goss
-#%dir /opt/cray/uan/tests/goss/tests
-#%dir /opt/cray/uan/tests/goss/scripts
-#%dir /opt/cray/uan/tests/goss/scripts/gpu
-#/opt/cray/uan/tests/goss/tests/goss-gpu.yaml
-#/opt/cray/uan/tests/goss/tests/goss-gpu-vars.yaml
-#/opt/cray/uan/tests/goss/scripts/gpu/cuda-profile
-#/opt/cray/uan/tests/goss/scripts/gpu/Makefile
-#/opt/cray/uan/tests/goss/scripts/gpu/hello.cu
-#/opt/cray/uan/tests/goss/scripts/gpu/hello_dbg.cu
-#/opt/cray/uan/tests/goss/scripts/gpu/cuda_hello.sh

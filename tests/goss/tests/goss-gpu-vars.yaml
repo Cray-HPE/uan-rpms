@@ -7,3 +7,12 @@ nvidia:
     - nvidia
   commands:
     - nvidia-smi
+amd:
+  modules:
+    - amdgpu
+    - amdkcl
+    - amdttm
+    - amd_energy
+    - amd_sched
+  commands:
+    - rocm-smi

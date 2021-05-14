@@ -36,14 +36,30 @@ command:
     timeout: 1000
     skip: false
 
+{{if eq .Env.GPU "nvidia"}}
   cuda_hello:
     title: Compile and run a simple CUDA Hello World program
     meta:
       desc: Compile and run a simple CUDA Hello World program
       sev: 0
-    exec: "/usr/bin/env bash {{.Env.GOSS_BASE}}/scripts/gpu/cuda_hello.sh"
+    exec: "/usr/bin/env bash {{.Env.GOSS_BASE}}/scripts/nvidia/cuda_hello.sh"
     stdout:
     - "PASS"
     exit-status: 0
     timeout: 10000
     skip: false
+{{end}}
+
+{{if eq .Env.GPU "amd"}}
+  cuda_hello:
+    title: Compile and run a simple HIP Hello World program
+    meta:
+      desc: Compile and run a simple HIP Hello World program
+      sev: 0
+    exec: "/usr/bin/env bash {{.Env.GOSS_BASE}}/scripts/amd/hip_hello.sh"
+    stdout:
+    - "PASS"
+    exit-status: 0
+    timeout: 10000
+    skip: false
+{{end}}
