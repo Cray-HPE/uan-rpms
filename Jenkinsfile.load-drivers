@@ -1,5 +1,5 @@
 // Copyright 2021 Hewlett Packard Enterprise Development LP
-@Library("dst-shared") _
+@Library("dst-shared@release/uan-2.1") _
 rpmBuild (
     specfile: "cray-uan-load-drivers.spec",
     channel: "casmcms-builds",
