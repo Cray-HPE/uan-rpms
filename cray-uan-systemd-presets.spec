@@ -13,7 +13,7 @@ Name:          cray-uan-systemd-presets
 Vendor:        Hewlett Packard Enterprise Development LP
 Version:       %(cat .rpm_version_uan-systemd-presets)
 Release:       %(echo ${BUILD_METADATA})
-Source:        %{name}.tar.bz2
+Source:        %{name}-%{version}.tar.bz2
 BuildArch:     noarch
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}
 Group:         System/Management
