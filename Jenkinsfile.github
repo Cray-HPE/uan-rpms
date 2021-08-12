@@ -17,14 +17,6 @@ pipeline {
 
     stages {
         stage("Build") {
-            agent {
-                docker {
-                    image "arti.dev.cray.com/dstbuildenv-docker-master-local/cray-sle15sp2_build_environment:latest"
-                    reuseNode true
-                     // Run as root
-                    args "-u root"
-                }
-            }
             steps {
                 sh "make"
             }
