@@ -16,6 +16,12 @@ pipeline {
     }
 
     stages {
+        stage("Prep") {
+            steps {
+                sh "zypper install curl"
+            }
+        }
+
         stage("Build") {
             steps {
                 sh "make"
