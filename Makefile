@@ -44,12 +44,6 @@ SPEC_VERSION_GOSS ?= $(shell cat .rpm_version_uan-goss)
 SOURCE_NAME_GOSS ?= ${RPM_NAME_GOSS}-${SPEC_VERSION_GOSS}
 SOURCE_PATH_GOSS := ${BUILD_DIR}/SOURCES/${SOURCE_NAME_GOSS}.tar.bz2
 
-RPM_NAME_BOOT_PARAM ?= cray-uan-boot-parameters-shasta-uan
-SPEC_FILE_BOOT_PARAM ?= cray-uan-boot-params.spec
-SPEC_VERSION_BOOT_PARAM ?= $(shell cat .rpm_version_uan-boot-params)
-SOURCE_NAME_BOOT_PARAM ?= ${RPM_NAME_BOOT_PARAM}-${SPEC_VERSION_BOOT_PARAM}
-SOURCE_PATH_BOOT_PARAM := ${BUILD_DIR}/SOURCES/${SOURCE_NAME_BOOT_PARAM}.tar.bz2
-
 RPM_NAME_DRIVERS ?= cray-uan-load-drivers-shasta-uan
 SPEC_FILE_DRIVERS ?= cray-uan-load-drivers.spec
 SPEC_VERSION_DRIVERS ?= $(shell cat .rpm_version_uan-load-drivers)
@@ -73,7 +67,7 @@ define rpm_build
 	BUILD_METADATA=${BUILD_METADATA} rpmbuild -ba $(1) --define "_topdir $(2)"
 endef
 
-all: rpm_systemd_presets rpm_diagnostics rpm_goss rpm_boot_param rpm_drivers
+all: rpm_systemd_presets rpm_diagnostics rpm_goss rpm_drivers
 
 rpm_systemd_presets:
 	$(call rpm_prepare,${BUILD_DIR},${SPEC_FILE_SYSTEMD_PRESETS})
@@ -92,12 +86,6 @@ rpm_goss:
 	$(call rpm_package_source,${SOURCE_NAME_GOSS},${SOURCE_PATH_GOSS},${SPEC_FILE_GOSS} LICENSE)
 	$(call rpm_build_source,${SOURCE_PATH_GOSS},${BUILD_DIR})
 	$(call rpm_build,${SPEC_FILE_GOSS},${BUILD_DIR})
-
-rpm_boot_param:
-	$(call rpm_prepare,${BUILD_DIR},${SPEC_FILE_BOOT_PARAM})
-	$(call rpm_package_source,${SOURCE_NAME_BOOT_PARAM},${SOURCE_PATH_BOOT_PARAM},${SPEC_FILE_BOOT_PARAM} boot-params)
-	$(call rpm_build_source,${SOURCE_PATH_BOOT_PARAM},${BUILD_DIR})
-	$(call rpm_build,${SPEC_FILE_BOOT_PARAM},${BUILD_DIR})
 
 rpm_drivers:
 	$(call rpm_prepare,${BUILD_DIR},${SPEC_FILE_DRIVERS})
