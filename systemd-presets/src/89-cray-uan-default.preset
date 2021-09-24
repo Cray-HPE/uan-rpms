@@ -15,7 +15,6 @@ enable jacsd.service
 enable kdump-spire-watcher.service
 enable mlx-set-irq-affinity.service
 enable palsd.service
-enable cray-switchboard-sshd.service
 # non-Cray services
 enable acpid.service
 enable chronyd.service
