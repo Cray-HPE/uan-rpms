@@ -1,0 +1,66 @@
+@Library('csm-shared-library') _
+
+pipeline {
+    agent {
+        label "metal-gcp-builder"
+    }
+
+    options {
+        buildDiscarder(logRotator(numToKeepStr: "10"))
+        timestamps()
+    }
+
+    environment {
+        NAME = "uan-rpms"
+        IS_STABLE = getBuildIsStable()
+        PUBLISH_SP1 = "sle-15sp1"
+        PUBLISH_REPO = "uan-rpms"
+    }
+
+    stages {
+
+        stage("Build SP1") {
+            agent {
+                docker {
+                    image "arti.dev.cray.com/dstbuildenv-docker-master-local/cray-sle15sp1_build_environment:latest"
+                    reuseNode true
+                    // Support docker in docker for clamav scan
+                    args "-v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/docker:/usr/bin/docker --group-add 999"
+                }
+            }
+            steps {
+                sh "make"
+            }
+        }
+
+
+        stage('Publish SP1') {
+            parallel {
+                stage('Publish noarch rpms') {
+                    steps {
+                        publishCsmRpms(artifactoryRepo: env.PUBLISH_REPO, component: env.NAME, pattern: "dist/rpmbuild/RPMS/noarch/*.rpm", os: env.PUBLISH_SP1, arch: "noarch", isStable: env.IS_STABLE)
+                    }
+                }
+
+                stage('Publish x86_64 rpms') {
+                    steps {
+                        publishCsmRpms(artifactoryRepo: env.PUBLISH_REPO, component: env.NAME, pattern: "dist/rpmbuild/RPMS/x86_64/*.rpm", os: env.PUBLISH_SP1, arch: "x86_64", isStable: env.IS_STABLE)
+                    }
+                }
+
+                stage('Publish src rpms') {
+                    steps {
+                        publishCsmRpms(artifactoryRepo: env.PUBLISH_REPO, component: env.NAME, pattern: "dist/rpmbuild/SRPMS/*.rpm", os: env.PUBLISH_SP1, arch: "src", isStable: env.IS_STABLE)
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            // Own files so jenkins can clean them up later
+            postChownFiles()
+        }
+    }
+}
