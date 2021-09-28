@@ -15,6 +15,7 @@ pipeline {
         IS_STABLE = getBuildIsStable()
         PUBLISH_SP1 = "sle-15sp1"
         PUBLISH_REPO = "uan-rpms"
+        BUILD_METADATA = getRpmRevision(isStable: env.IS_STABLE)
     }
 
     stages {
