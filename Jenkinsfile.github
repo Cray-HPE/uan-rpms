@@ -16,6 +16,7 @@ pipeline {
         PUBLISH_SP2 = "sle-15sp2"
         PUBLISH_SP3 = "sle-15sp3"
         PUBLISH_REPO = "uan-rpms"
+        BUILD_METADATA = getRpmRevision(isStable: env.IS_STABLE)
     }
 
     stages {
