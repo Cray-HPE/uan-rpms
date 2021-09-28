@@ -13,7 +13,7 @@
 %define package_name uan-boot-parameters
 %define intranamespace_name %{package_name}-%{system_name}
 # omit system_name so source doesn't need to be repackaged for each system
-%define source_name %{namespace}-%{package_name}-%{version}
+%define source_name %{namespace}-%{intranamespace_name}-uan-%{version}
 
 Group: System/Boot
 License: GPL
