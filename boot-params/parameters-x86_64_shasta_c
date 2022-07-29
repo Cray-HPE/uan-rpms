@@ -19,8 +19,4 @@ rd.retry=10
 rd.shell
 turbo_boost_limit=999
 biosdevname=0
-<<<<<<< HEAD
 psi=1
-=======
-pci=1
->>>>>>> 259fe56 (Set psi=1 for x86_64 nodes)
