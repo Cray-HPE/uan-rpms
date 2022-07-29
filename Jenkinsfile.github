@@ -23,7 +23,7 @@
 *  OTHER DEALINGS IN THE SOFTWARE.
 *
  */
-@Library('csm-shared-library') _
+@Library('csm-shared-library@c20e96388') _
 
 pipeline {
     agent {
@@ -38,7 +38,7 @@ pipeline {
     environment {
         NAME = "uan-rpms"
         IS_STABLE = getBuildIsStable()
-        PUBLISH_SP2 = "sle-15sp2"
+        PUBLISH_SP4 = "sle-15sp4"
         PUBLISH_SP3 = "sle-15sp3"
         PUBLISH_REPO = "uan-rpms"
         BUILD_METADATA = getRpmRevision(isStable: env.IS_STABLE)
@@ -46,10 +46,10 @@ pipeline {
 
     stages {
 
-        stage("Build SP2") {
+        stage("Build SP4") {
             agent {
                 docker {
-                    image "arti.dev.cray.com/dstbuildenv-docker-master-local/cray-sle15sp2_build_environment:latest"
+                    image "arti.dev.cray.com/dstbuildenv-docker-master-local/cray-sle15sp4_build_environment:latest"
                     reuseNode true
                     // Support docker in docker for clamav scan
                     args "-v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/docker:/usr/bin/docker --group-add 999"
@@ -61,23 +61,23 @@ pipeline {
         }
 
 
-        stage('Publish SP2') {
+        stage('Publish SP4') {
             parallel {
                 stage('Publish noarch rpms') {
                     steps {
-                        publishCsmRpms(artifactoryRepo: env.PUBLISH_REPO, component: env.NAME, pattern: "dist/rpmbuild/RPMS/noarch/*.rpm", os: env.PUBLISH_SP2, arch: "noarch", isStable: env.IS_STABLE)
+                        publishCsmRpms(artifactoryRepo: env.PUBLISH_REPO, component: env.NAME, pattern: "dist/rpmbuild/RPMS/noarch/", os: env.PUBLISH_SP4, arch: "noarch", isStable: env.IS_STABLE)
                     }
                 }
 
                 stage('Publish x86_64 rpms') {
                     steps {
-                        publishCsmRpms(artifactoryRepo: env.PUBLISH_REPO, component: env.NAME, pattern: "dist/rpmbuild/RPMS/x86_64/*.rpm", os: env.PUBLISH_SP2, arch: "x86_64", isStable: env.IS_STABLE)
+                        publishCsmRpms(artifactoryRepo: env.PUBLISH_REPO, component: env.NAME, pattern: "dist/rpmbuild/RPMS/x86_64/", os: env.PUBLISH_SP4, arch: "x86_64", isStable: env.IS_STABLE)
                     }
                 }
 
                 stage('Publish src rpms') {
                     steps {
-                        publishCsmRpms(artifactoryRepo: env.PUBLISH_REPO, component: env.NAME, pattern: "dist/rpmbuild/SRPMS/*.rpm", os: env.PUBLISH_SP2, arch: "src", isStable: env.IS_STABLE)
+                        publishCsmRpms(artifactoryRepo: env.PUBLISH_REPO, component: env.NAME, pattern: "dist/rpmbuild/SRPMS/", os: env.PUBLISH_SP4, arch: "src", isStable: env.IS_STABLE)
                     }
                 }
             }
@@ -102,19 +102,19 @@ pipeline {
             parallel {
                 stage('Publish noarch rpms') {
                     steps {
-                        publishCsmRpms(artifactoryRepo: env.PUBLISH_REPO, component: env.NAME, pattern: "dist/rpmbuild/RPMS/noarch/*.rpm", os: env.PUBLISH_SP3, arch: "noarch", isStable: env.IS_STABLE)
+                        publishCsmRpms(artifactoryRepo: env.PUBLISH_REPO, component: env.NAME, pattern: "dist/rpmbuild/RPMS/noarch/", os: env.PUBLISH_SP3, arch: "noarch", isStable: env.IS_STABLE)
                     }
                 }
 
                 stage('Publish x86_64 rpms') {
                     steps {
-                        publishCsmRpms(artifactoryRepo: env.PUBLISH_REPO, component: env.NAME, pattern: "dist/rpmbuild/RPMS/x86_64/*.rpm", os: env.PUBLISH_SP3, arch: "x86_64", isStable: env.IS_STABLE)
+                        publishCsmRpms(artifactoryRepo: env.PUBLISH_REPO, component: env.NAME, pattern: "dist/rpmbuild/RPMS/x86_64/", os: env.PUBLISH_SP3, arch: "x86_64", isStable: env.IS_STABLE)
                     }
                 }
 
                 stage('Publish src rpms') {
                     steps {
-                        publishCsmRpms(artifactoryRepo: env.PUBLISH_REPO, component: env.NAME, pattern: "dist/rpmbuild/SRPMS/*.rpm", os: env.PUBLISH_SP3, arch: "src", isStable: env.IS_STABLE)
+                        publishCsmRpms(artifactoryRepo: env.PUBLISH_REPO, component: env.NAME, pattern: "dist/rpmbuild/SRPMS/", os: env.PUBLISH_SP3, arch: "src", isStable: env.IS_STABLE)
                     }
                 }
             }
