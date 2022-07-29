@@ -19,3 +19,4 @@ rd.retry=10
 rd.shell
 turbo_boost_limit=999
 biosdevname=0
+psi=1
